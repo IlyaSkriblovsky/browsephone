@@ -8,7 +8,7 @@
 
 
 Client::Client(int socket, QObject* parent)
-    : QObject(parent), _socket(0), _request(0)
+    : QObject(parent), _socket(0), _request(0), _response(0)
 {
     _request = new HttpRequest;
 
@@ -35,11 +35,28 @@ void Client::onReadyRead()
 
 void Client::onDisconnected()
 {
+    if (_response)
+    {
+        _response->abort();
+        delete _response;
+        _response = 0;
+    }
+
     disconnected();
 }
 
 
-void Client::send(HttpResponse* response)
+void Client::response(HttpResponse* response)
 {
+    _response = response;
+    _response->setParent(this);
+
+    connect(_response, SIGNAL(finished()), this, SLOT(onResponseFinished()));
     response->send(_socket);
+}
+
+
+void Client::onResponseFinished()
+{
+    _socket->disconnectFromHost();
 }

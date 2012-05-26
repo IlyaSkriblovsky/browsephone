@@ -19,7 +19,7 @@ class Client: public QObject
 
         const HttpRequest* request() const { return _request; }
 
-        void send(HttpResponse* response);
+        void response(HttpResponse* response);
 
     signals:
         void requestReady();
@@ -29,9 +29,11 @@ class Client: public QObject
     private slots:
         void onReadyRead();
         void onDisconnected();
+        void onResponseFinished();
 
 
     private:
         QTcpSocket* _socket;
         HttpRequest* _request;
+        HttpResponse* _response;
 };

@@ -1,13 +1,17 @@
 #pragma once
 
+#include <QObject>
 #include <QString>
 #include <QMap>
+#include <QDateTime>
 
 class QTcpSocket;
 
 
-class HttpResponse
+class HttpResponse: public QObject
 {
+    Q_OBJECT
+
     public:
         HttpResponse();
         ~HttpResponse();
@@ -17,6 +21,11 @@ class HttpResponse
         void setStatus(int code, const QString& phrase) { _code = code; _phrase = phrase; }
 
         void send(QTcpSocket* socket);
+        virtual void abort();
+
+
+    signals:
+        void finished();
 
 
     protected:
@@ -28,4 +37,9 @@ class HttpResponse
 
         int _code;
         QString _phrase;
+
+
+        void sendHeaders(QTcpSocket* socket);
+
+        static QString httpDate(QDateTime dt);
 };

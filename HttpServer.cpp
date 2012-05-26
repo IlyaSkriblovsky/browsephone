@@ -51,8 +51,7 @@ void HttpServer::onRequestReady()
         HttpResponse* response = _resources.at(i)->handle(request);
         if (response)
         {
-            client->send(response);
-            delete response;
+            client->response(response);
 
             handled = true;
             break;
@@ -61,11 +60,11 @@ void HttpServer::onRequestReady()
 
     if (! handled)
     {
-        PlainResponse r404;
-        r404.setStatus(404, "Not found");
-        r404.headers().insert("Content-Type", "text/plain");
-        r404.setContent(QString("<h1>Not found</h1>").toUtf8());
-        client->send(&r404);
+        PlainResponse* r404 = new PlainResponse;
+        r404->setStatus(404, "Not found");
+        r404->headers().insert("Content-Type", "text/plain");
+        r404->setContent(QString("<h1>Not found</h1>").toUtf8());
+        client->response(r404);
     }
 }
 
