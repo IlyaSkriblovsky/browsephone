@@ -1,0 +1,12 @@
+Source: browsephone
+Section: user/network
+Priority: extra
+Maintainer: Ilya Skriblovsky <Ilya.Skriblovsky@gmail.com>
+Build-Depends: debhelper (>= 7), libqt4-dev
+Standards-Version: 3.8.4
+
+Package: browsephone
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Browse your phone via WiFi Web-interface
+Version: 0.0.1

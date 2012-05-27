@@ -5,6 +5,10 @@ QT = core network
 CONFIG += debug
 
 
+target.path = /opt/browsephone/
+INSTALLS += target
+
+
 include(http/http.pri)
 
 
