@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QStringList>
+#include <QUrl>
 
 
 using namespace http;
@@ -29,7 +30,7 @@ void Request::feed(const QByteArray& chunk)
         QString firstLine = lines.at(0);
         QStringList parts = firstLine.split(' ');
         _method = parts.at(0);
-        _url = parts.at(1);
+        _url = QUrl::fromPercentEncoding(parts.at(1).toUtf8());
 
         for (int i = 1; i < lines.size(); i++)
         {
