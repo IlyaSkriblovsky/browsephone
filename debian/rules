@@ -7,7 +7,7 @@ builddir:
 
 
 builddir/Makefile: builddir
-	cd builddir && qmake PREFIX=/usr ../$(APPNAME).pro BUILDDIR=builddir CONFIG+=asyncdb
+	cd builddir && qmake PREFIX=/usr ../$(APPNAME).pro BUILDDIR=builddir
 
 build: build-stamp
 

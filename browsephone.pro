@@ -2,7 +2,8 @@ TEMPLATE = app
 
 QT = core network
 
-CONFIG += debug
+CONFIG += debug mobility
+MOBILITY += gallery
 
 
 target.path = /opt/browsephone/
@@ -13,9 +14,7 @@ include(http/http.pri)
 
 
 HEADERS += \
-    TestResponse.h  \
     TestResource.h  \
 
 SOURCES += main.cpp     \
-    TestResponse.cpp    \
     TestResource.cpp    \
