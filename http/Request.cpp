@@ -1,20 +1,23 @@
-#include "HttpRequest.h"
+#include "Request.h"
 
 #include <QDebug>
 #include <QStringList>
 
 
-HttpRequest::HttpRequest()
+using namespace http;
+
+
+Request::Request()
     : _ready(false)
 {
 }
 
-HttpRequest::~HttpRequest()
+Request::~Request()
 {
 }
 
 
-void HttpRequest::feed(const QByteArray& chunk)
+void Request::feed(const QByteArray& chunk)
 {
     _data.append(chunk);
     _ready = _data.contains("\r\n\r");

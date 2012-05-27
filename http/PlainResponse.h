@@ -1,9 +1,13 @@
 #pragma once
 
-#include "HttpResponse.h"
+#include "Response.h"
 
 
-class PlainResponse: public HttpResponse
+namespace http
+{
+
+
+class PlainResponse: public Response
 {
     public:
         PlainResponse();
@@ -19,3 +23,6 @@ class PlainResponse: public HttpResponse
     private:
         QByteArray _content;
 };
+
+
+}

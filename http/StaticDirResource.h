@@ -5,7 +5,11 @@
 #include <QDir>
 
 
-class HttpResponse;
+namespace http
+{
+
+
+class Response;
 
 
 class StaticDirResource: public Resource
@@ -14,7 +18,7 @@ class StaticDirResource: public Resource
         StaticDirResource(const QString& urlPrefix, const QString& dir);
 
 
-        virtual HttpResponse* handle(const HttpRequest* request);
+        virtual Response* handle(const Request* request);
 
 
     private:
@@ -22,5 +26,8 @@ class StaticDirResource: public Resource
         QDir _dir;
 
 
-        HttpResponse* dirListing(const QString& path);
+        Response* dirListing(const QString& path);
 };
+
+
+}

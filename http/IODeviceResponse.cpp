@@ -5,6 +5,9 @@
 #include <QTcpSocket>
 
 
+using namespace http;
+
+
 #define BLOCK_SIZE      (100 * 1024)
 
 

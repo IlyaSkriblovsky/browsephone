@@ -1,9 +1,13 @@
 #pragma once
 
-#include "HttpResponse.h"
+#include "Response.h"
 
 
-class RedirectResponse: public HttpResponse
+namespace http
+{
+
+
+class RedirectResponse: public Response
 {
     public:
         RedirectResponse(const QString& url, bool permanent);
@@ -17,3 +21,6 @@ class RedirectResponse: public HttpResponse
         const QString& _url;
         bool _permanent;
 };
+
+
+}

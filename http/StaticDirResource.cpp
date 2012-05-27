@@ -3,10 +3,13 @@
 #include <QDebug>
 #include <QFile>
 
-#include "HttpRequest.h"
+#include "Request.h"
 #include "IODeviceResponse.h"
 #include "PlainResponse.h"
 #include "RedirectResponse.h"
+
+
+using namespace http;
 
 
 StaticDirResource::StaticDirResource(const QString& urlPrefix, const QString& dir)
@@ -16,7 +19,7 @@ StaticDirResource::StaticDirResource(const QString& urlPrefix, const QString& di
 }
 
 
-HttpResponse* StaticDirResource::handle(const HttpRequest* request)
+Response* StaticDirResource::handle(const Request* request)
 {
     if (request->url().startsWith(_urlPrefix))
     {
@@ -64,7 +67,7 @@ HttpResponse* StaticDirResource::handle(const HttpRequest* request)
 }
 
 
-HttpResponse* StaticDirResource::dirListing(const QString& path)
+Response* StaticDirResource::dirListing(const QString& path)
 {
     QString begin =
         "<!DOCTYPE html>\n"

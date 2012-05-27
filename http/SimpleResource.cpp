@@ -1,7 +1,10 @@
 #include "SimpleResource.h"
 
-#include "HttpRequest.h"
+#include "Request.h"
 #include "PlainResponse.h"
+
+
+using namespace http;
 
 
 SimpleResource::SimpleResource(const QString& url, const QByteArray& content, const QString& mime)
@@ -10,7 +13,7 @@ SimpleResource::SimpleResource(const QString& url, const QByteArray& content, co
 }
 
 
-HttpResponse* SimpleResource::handle(const HttpRequest* request)
+Response* SimpleResource::handle(const Request* request)
 {
     if (request->url() == _url)
     {

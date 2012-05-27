@@ -5,7 +5,6 @@
 
 TestResponse::~TestResponse()
 {
-    qDebug() << "~TestResponse";
 }
 
 

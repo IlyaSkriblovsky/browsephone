@@ -1,4 +1,4 @@
-#include "HttpServer.h"
+#include "Server.h"
 
 #include <QDebug>
 #include <QTcpSocket>
@@ -8,47 +8,48 @@
 #include <QDateTime>
 
 #include "Client.h"
-#include "HttpRequest.h"
-#include "HttpResponse.h"
+#include "Request.h"
+#include "Response.h"
 #include "PlainResponse.h"
 #include "Resource.h"
 
 
-HttpServer::HttpServer(QObject* parent)
+using namespace http;
+
+
+Server::Server(QObject* parent)
     : QTcpServer(parent)
 {
     listen(QHostAddress::Any, 8080);
 }
 
 
-HttpServer::~HttpServer()
+Server::~Server()
 {
     foreach (Resource* r, _resources)
         delete r;
 }
 
 
-void HttpServer::incomingConnection(int socket)
+void Server::incomingConnection(int socket)
 {
     Client* client = new Client(socket, this);
-
-    qDebug() << "new client";
 
     connect(client, SIGNAL(requestReady()), this, SLOT(onRequestReady()));
     connect(client, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
 }
 
 
-void HttpServer::onRequestReady()
+void Server::onRequestReady()
 {
     Client* client = dynamic_cast<Client*>(sender());
 
-    const HttpRequest* request = client->request();
+    const Request* request = client->request();
     bool handled = false;
 
     for (int i = 0; i < _resources.size(); i++)
     {
-        HttpResponse* response = _resources.at(i)->handle(request);
+        Response* response = _resources.at(i)->handle(request);
         if (response)
         {
             client->response(response);
@@ -69,9 +70,8 @@ void HttpServer::onRequestReady()
 }
 
 
-void HttpServer::onDisconnected()
+void Server::onDisconnected()
 {
     Client* client = dynamic_cast<Client*>(sender());
     client->deleteLater();
-    qDebug() << "client disconnected";
 }

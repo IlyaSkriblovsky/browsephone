@@ -1,13 +1,13 @@
 #pragma once
 
-#include "HttpResponse.h"
+#include "http/Response.h"
 
 #include <QTimer>
 
 class QTcpSocket;
 
 
-class TestResponse: public HttpResponse
+class TestResponse: public http::Response
 {
     Q_OBJECT
 

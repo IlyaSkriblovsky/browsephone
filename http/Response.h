@@ -8,13 +8,17 @@
 class QTcpSocket;
 
 
-class HttpResponse: public QObject
+namespace http
+{
+
+
+class Response: public QObject
 {
     Q_OBJECT
 
     public:
-        HttpResponse();
-        ~HttpResponse();
+        Response();
+        ~Response();
 
         QMap<QString, QString>& headers() { return _headers; }
 
@@ -43,3 +47,6 @@ class HttpResponse: public QObject
 
         static QString httpDate(QDateTime dt);
 };
+
+
+}

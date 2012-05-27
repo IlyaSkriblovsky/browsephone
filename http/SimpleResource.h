@@ -3,13 +3,17 @@
 #include "Resource.h"
 
 
+namespace http
+{
+
+
 class SimpleResource: public Resource
 {
     public:
         SimpleResource(const QString& url, const QByteArray& content, const QString& mime = "text/html; charset=utf-8");
 
 
-        HttpResponse* handle(const HttpRequest* request);
+        Response* handle(const Request* request);
 
 
     private:
@@ -17,3 +21,6 @@ class SimpleResource: public Resource
         QString _mime;
         QByteArray _content;
 };
+
+
+}

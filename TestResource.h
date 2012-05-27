@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Resource.h"
+#include "http/Resource.h"
 
 
-class TestResource: public Resource
+class TestResource: public http::Resource
 {
     public:
         TestResource(const QString& url);
 
-        HttpResponse* handle(const HttpRequest* request);
+        http::Response* handle(const http::Request* request);
 
 
     private:

@@ -3,14 +3,17 @@
 #include <QDebug>
 #include <QTcpSocket>
 
-#include "HttpRequest.h"
-#include "HttpResponse.h"
+#include "Request.h"
+#include "Response.h"
+
+
+using namespace http;
 
 
 Client::Client(int socket, QObject* parent)
     : QObject(parent), _socket(0), _request(0), _response(0)
 {
-    _request = new HttpRequest;
+    _request = new Request;
 
     _socket = new QTcpSocket(this);
     connect(_socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
@@ -46,7 +49,7 @@ void Client::onDisconnected()
 }
 
 
-void Client::response(HttpResponse* response)
+void Client::response(Response* response)
 {
     _response = response;
     _response->setParent(this);

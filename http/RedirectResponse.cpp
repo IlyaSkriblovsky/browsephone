@@ -3,6 +3,9 @@
 #include <QTcpSocket>
 
 
+using namespace http;
+
+
 RedirectResponse::RedirectResponse(const QString& url, bool permanent)
     : _url(url), _permanent(permanent)
 {
@@ -17,5 +20,7 @@ RedirectResponse::RedirectResponse(const QString& url, bool permanent)
 
 void RedirectResponse::sendContent(QTcpSocket* socket)
 {
+    Q_UNUSED(socket);
+
     finished();
 }

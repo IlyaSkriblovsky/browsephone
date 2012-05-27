@@ -3,16 +3,20 @@
 #include <QTcpServer>
 
 
+namespace http
+{
+
+
 class Resource;
 
 
-class HttpServer: public QTcpServer
+class Server: public QTcpServer
 {
     Q_OBJECT
 
     public:
-        HttpServer(QObject* parent = 0);
-        ~HttpServer();
+        Server(QObject* parent = 0);
+        ~Server();
 
         void addResource(Resource* resource) { _resources.append(resource); }
 
@@ -29,3 +33,6 @@ class HttpServer: public QTcpServer
     private:
         QList<Resource*> _resources;
 };
+
+
+}

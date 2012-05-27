@@ -1,12 +1,16 @@
 #pragma once
 
-#include "HttpResponse.h"
+#include "Response.h"
 
 class QIODevice;
 class QTcpSocket;
 
 
-class IODeviceResponse: public HttpResponse
+namespace http
+{
+
+
+class IODeviceResponse: public Response
 {
     Q_OBJECT
 
@@ -33,3 +37,6 @@ class IODeviceResponse: public HttpResponse
         void sendChunk(int size);
         void close();
 };
+
+
+}

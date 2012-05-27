@@ -1,7 +1,9 @@
 #include "TestResource.h"
 
-#include "HttpRequest.h"
+#include "http/Request.h"
+
 #include "TestResponse.h"
+
 
 
 TestResource::TestResource(const QString& url)
@@ -9,7 +11,7 @@ TestResource::TestResource(const QString& url)
 {
 }
 
-HttpResponse* TestResource::handle(const HttpRequest* request)
+http::Response* TestResource::handle(const http::Request* request)
 {
     if (request->url() == _url)
         return new TestResponse();

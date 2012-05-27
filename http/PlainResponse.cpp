@@ -2,6 +2,10 @@
 
 #include <QTcpSocket>
 
+
+using namespace http;
+
+
 PlainResponse::PlainResponse()
 {
 }

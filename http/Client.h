@@ -5,8 +5,12 @@
 
 class QTcpSocket;
 
-class HttpRequest;
-class HttpResponse;
+
+namespace http
+{
+
+class Request;
+class Response;
 
 
 class Client: public QObject
@@ -17,9 +21,9 @@ class Client: public QObject
         Client(int socket, QObject* parent = 0);
         ~Client();
 
-        const HttpRequest* request() const { return _request; }
+        const Request* request() const { return _request; }
 
-        void response(HttpResponse* response);
+        void response(Response* response);
 
     signals:
         void requestReady();
@@ -34,6 +38,9 @@ class Client: public QObject
 
     private:
         QTcpSocket* _socket;
-        HttpRequest* _request;
-        HttpResponse* _response;
+        Request* _request;
+        Response* _response;
 };
+
+
+}

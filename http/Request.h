@@ -5,11 +5,15 @@
 #include <QMap>
 
 
-class HttpRequest
+namespace http
+{
+
+
+class Request
 {
     public:
-        HttpRequest();
-        ~HttpRequest();
+        Request();
+        ~Request();
 
         void feed(const QByteArray& chunk);
 
@@ -28,3 +32,6 @@ class HttpRequest
         QString _url;
         QMap<QString, QString> _headers;
 };
+
+
+}
