@@ -63,7 +63,7 @@ void Server::onRequestReady()
     {
         PlainResponse* r404 = new PlainResponse;
         r404->setStatus(404, "Not found");
-        r404->headers().insert("Content-Type", "text/plain");
+        r404->headers().insert("Content-Type", "text/html");
         r404->setContent(QString("<h1>Not found</h1>").toUtf8());
         client->response(r404);
     }
