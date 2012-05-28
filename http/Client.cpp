@@ -4,6 +4,7 @@
 #include <QTcpSocket>
 
 #include "Request.h"
+#include "ResponsePromise.h"
 #include "Response.h"
 
 
@@ -11,7 +12,7 @@ using namespace http;
 
 
 Client::Client(int socket, QObject* parent)
-    : QObject(parent), _socket(0), _request(0), _response(0)
+    : QObject(parent), _socket(0), _request(0), _promise(0)
 {
     _request = new Request;
 
@@ -23,7 +24,7 @@ Client::Client(int socket, QObject* parent)
 
 Client::~Client()
 {
-    delete _request;
+    delete _promise;
 }
 
 
@@ -38,23 +39,27 @@ void Client::onReadyRead()
 
 void Client::onDisconnected()
 {
-    if (_response)
-    {
-        _response->abort();
-        delete _response;
-        _response = 0;
-    }
-
     disconnected();
 }
 
 
-void Client::response(Response* response)
+void Client::promise(ResponsePromise* promise)
 {
-    _response = response;
-    _response->setParent(this);
+    _promise = promise;
+    _promise->setParent(this);
 
-    connect(_response, SIGNAL(finished()), this, SLOT(onResponseFinished()));
+    connect(_promise, SIGNAL(ready()), this, SLOT(onPromiseReady()));
+    if (_promise->isReady())
+        onPromiseReady();
+    //response->send(_socket);
+}
+
+
+void Client::onPromiseReady()
+{
+    Response* response = _promise->response();
+
+    connect(response, SIGNAL(finished()), this, SLOT(onResponseFinished()));
     response->send(_socket);
 }
 

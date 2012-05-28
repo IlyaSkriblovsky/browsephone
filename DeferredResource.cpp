@@ -1,9 +1,11 @@
 #include "DeferredResource.h"
 
+#include <QDebug>
 #include <QTimer>
 #include <QVariant>
 
 #include "http/Request.h"
+#include "http/ResponsePromise.h"
 #include "http/PlainResponse.h"
 
 
@@ -13,19 +15,19 @@ DeferredResource::DeferredResource(const QString& url)
 }
 
 
-http::Response* DeferredResource::handle(const http::Request* request)
+http::ResponsePromise* DeferredResource::handle(const http::Request* request)
 {
     if (request->url() == _url)
     {
-        http::PlainResponse* r = new http::PlainResponse;
+        http::ResponsePromise* promise = new http::ResponsePromise;
 
         QTimer* t = new QTimer(this);
-        t->setProperty("response", QVariant::fromValue((QObject*)r));
+        t->setProperty("promise", QVariant::fromValue((QObject*)promise));
         t->setSingleShot(true);
         connect(t, SIGNAL(timeout()), this, SLOT(onTimer()));
         t->start(5000);
 
-        return r;
+        return promise;
     }
 
     return 0;
@@ -34,9 +36,15 @@ http::Response* DeferredResource::handle(const http::Request* request)
 void DeferredResource::onTimer()
 {
     QTimer* t = static_cast<QTimer*>(sender());
-    http::PlainResponse* r = static_cast<http::PlainResponse*>(
-        t->property("response").value<QObject*>()
+    http::ResponsePromise* promise = static_cast<http::ResponsePromise*>(
+        t->property("promise").value<QObject*>()
     );
-    r->setContent("5sec");
+
     delete t;
+
+
+    http::PlainResponse* r = new http::PlainResponse;
+    r->setContent("5sec");
+
+    promise->fullfill(r);
 }

@@ -10,6 +10,7 @@
 #include "Client.h"
 #include "Request.h"
 #include "Response.h"
+#include "ResponsePromise.h"
 #include "PlainResponse.h"
 #include "Resource.h"
 
@@ -49,10 +50,10 @@ void Server::onRequestReady()
 
     for (int i = 0; i < _resources.size(); i++)
     {
-        Response* response = _resources.at(i)->handle(request);
-        if (response)
+        ResponsePromise* promise = _resources.at(i)->handle(request);
+        if (promise)
         {
-            client->response(response);
+            client->promise(promise);
 
             handled = true;
             break;
@@ -65,7 +66,7 @@ void Server::onRequestReady()
         r404->setStatus(404, "Not found");
         r404->headers().insert("Content-Type", "text/html");
         r404->setContent(QString("<h1>Not found</h1>").toUtf8());
-        client->response(r404);
+        client->promise(new ResponsePromise(r404));
     }
 }
 

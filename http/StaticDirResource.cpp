@@ -5,6 +5,7 @@
 
 #include "Request.h"
 #include "IODeviceResponse.h"
+#include "ResponsePromise.h"
 #include "PlainResponse.h"
 #include "RedirectResponse.h"
 
@@ -19,7 +20,7 @@ StaticDirResource::StaticDirResource(const QString& urlPrefix, const QString& di
 }
 
 
-Response* StaticDirResource::handle(const Request* request)
+ResponsePromise* StaticDirResource::handle(const Request* request)
 {
     if (request->url().startsWith(_urlPrefix))
     {
@@ -45,9 +46,9 @@ Response* StaticDirResource::handle(const Request* request)
         if (info.isDir())
         {
             if (tail.length() == 0 || tail.endsWith("/"))
-                return dirListing(filePath);
+                return new ResponsePromise(dirListing(filePath));
             else
-                return new RedirectResponse(_urlPrefix + tail + "/", true);
+                return new ResponsePromise(new RedirectResponse(_urlPrefix + tail + "/", true));
         }
         else
         {
@@ -59,7 +60,7 @@ Response* StaticDirResource::handle(const Request* request)
                 return 0;
             }
 
-            return new IODeviceResponse(f);
+            return new ResponsePromise(new IODeviceResponse(f));
         }
     }
 

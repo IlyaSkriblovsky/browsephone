@@ -13,7 +13,7 @@ class SimpleResource: public Resource
         SimpleResource(const QString& url, const QByteArray& content, const QString& mime = "text/html; charset=utf-8");
 
 
-        Response* handle(const Request* request);
+        ResponsePromise* handle(const Request* request);
 
 
     private:

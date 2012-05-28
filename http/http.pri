@@ -8,7 +8,8 @@ HEADERS +=                  \
     http/SimpleResource.h   \
     http/IODeviceResponse.h \
     http/StaticDirResource.h\
-    http/RedirectResponse.h
+    http/RedirectResponse.h \
+    http/ResponsePromise.h
 
 
 SOURCES +=                      \
@@ -21,4 +22,5 @@ SOURCES +=                      \
     http/SimpleResource.cpp     \
     http/IODeviceResponse.cpp   \
     http/StaticDirResource.cpp  \
-    http/RedirectResponse.cpp
+    http/RedirectResponse.cpp   \
+    http/ResponsePromise.cpp

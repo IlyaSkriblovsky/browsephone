@@ -10,15 +10,20 @@ target.path = /opt/browsephone/
 INSTALLS += target
 
 
+static.files = static/*
+static.path = /opt/browsephone/static/
+INSTALLS += static
+
+
 include(http/http.pri)
 
 
 HEADERS += \
-    TestResource.h  \
     DeferredResource.h  \
-    ImagesResource.h
+    GalleryListResource.h   \
+    ItemContentResource.h
 
 SOURCES += main.cpp     \
-    TestResource.cpp    \
     DeferredResource.cpp\
-    ImagesResource.cpp
+    GalleryListResource.cpp \
+    ItemContentResource.cpp

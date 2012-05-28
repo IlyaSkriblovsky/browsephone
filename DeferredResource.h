@@ -12,7 +12,7 @@ class DeferredResource: public QObject, public http::Resource
     public:
         DeferredResource(const QString& url);
 
-        http::Response* handle(const http::Request* request);
+        http::ResponsePromise* handle(const http::Request* request);
 
 
     private slots:

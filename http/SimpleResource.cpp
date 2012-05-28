@@ -1,6 +1,7 @@
 #include "SimpleResource.h"
 
 #include "Request.h"
+#include "ResponsePromise.h"
 #include "PlainResponse.h"
 
 
@@ -13,7 +14,7 @@ SimpleResource::SimpleResource(const QString& url, const QByteArray& content, co
 }
 
 
-Response* SimpleResource::handle(const Request* request)
+ResponsePromise* SimpleResource::handle(const Request* request)
 {
     if (request->url() == _url)
     {
@@ -21,7 +22,7 @@ Response* SimpleResource::handle(const Request* request)
         response->setStatus(200, "OK");
         response->headers().insert("Content-Type", _mime);
         response->setContent(_content);
-        return response;
+        return new ResponsePromise(response);
     }
 
     return 0;

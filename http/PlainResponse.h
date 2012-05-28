@@ -21,11 +21,7 @@ class PlainResponse: public Response
 
 
     private:
-        bool _contentSet;
         QByteArray _content;
-
-        bool _deferred;
-        QTcpSocket* _deferredSocket;
 };
 
 

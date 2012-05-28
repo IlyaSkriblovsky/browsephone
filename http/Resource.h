@@ -8,7 +8,7 @@ namespace http
 
 
 class Request;
-class Response;
+class ResponsePromise;
 
 
 class Resource
@@ -18,7 +18,7 @@ class Resource
         ~Resource();
 
 
-        virtual Response* handle(const Request* request) = 0;
+        virtual ResponsePromise* handle(const Request* request) = 0;
 };
 
 

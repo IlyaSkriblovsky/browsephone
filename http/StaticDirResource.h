@@ -8,7 +8,6 @@
 namespace http
 {
 
-
 class Response;
 
 
@@ -18,7 +17,7 @@ class StaticDirResource: public Resource
         StaticDirResource(const QString& urlPrefix, const QString& dir);
 
 
-        virtual Response* handle(const Request* request);
+        virtual ResponsePromise* handle(const Request* request);
 
 
     private:

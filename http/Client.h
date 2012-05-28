@@ -10,7 +10,7 @@ namespace http
 {
 
 class Request;
-class Response;
+class ResponsePromise;
 
 
 class Client: public QObject
@@ -23,7 +23,7 @@ class Client: public QObject
 
         const Request* request() const { return _request; }
 
-        void response(Response* response);
+        void promise(ResponsePromise* promise);
 
     signals:
         void requestReady();
@@ -33,13 +33,15 @@ class Client: public QObject
     private slots:
         void onReadyRead();
         void onDisconnected();
+
+        void onPromiseReady();
         void onResponseFinished();
 
 
     private:
         QTcpSocket* _socket;
         Request* _request;
-        Response* _response;
+        ResponsePromise* _promise;
 };
 
 
