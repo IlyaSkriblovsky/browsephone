@@ -6,6 +6,7 @@
 
 #include "TestResource.h"
 #include "DeferredResource.h"
+#include "ImagesResource.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,8 @@ int main(int argc, char *argv[])
     server.addResource(new http::StaticDirResource("/f/", "."));
     server.addResource(new TestResource("/test"));
     server.addResource(new DeferredResource("/5"));
+
+    server.addResource(new ImagesResource);
 
     return app.exec();
 }
