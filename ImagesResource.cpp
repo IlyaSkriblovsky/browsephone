@@ -36,6 +36,7 @@ http::Response* ImagesResource::handle(const http::Request* request)
         galleryRequest->setPropertyNames(propertyNames);
 
         http::PlainResponse* response = new http::PlainResponse;
+        response->headers().insert("Content-Type", "application/json");
         galleryRequest->setProperty("response", QVariant::fromValue(static_cast<QObject*>(response)));
 
         connect(galleryRequest, SIGNAL(finished()), this, SLOT(onListRequestFinished()));
@@ -90,8 +91,16 @@ void ImagesResource::onListRequestFinished()
                 text += "    " + properties.at(i) + ": ";
                 switch (types[i])
                 {
-                    case QVariant::String: text += "\"" + resultSet->metaData(keys[i]).toString() + "\","; break;
-                    case QVariant::Int: text += resultSet->metaData(keys[i]).toString() + ","; break;
+                    case QVariant::String: text += "\"" + resultSet->metaData(keys[i]).toString() + "\",\n"; break;
+                    case QVariant::Int: text += resultSet->metaData(keys[i]).toString() + ",\n"; break;
+                    case QVariant::StringList: {
+                        QStringList sl = resultSet->metaData(keys[i]).toStringList();
+                        text += "[\n";
+                        for (int j = 0; sl.size(); j++)
+                            text += "      \"" + sl.at(j) + "\",\n";
+                        text += "    ],\n";
+                        break;
+                    }
                     default: text += "'<unknown type>',\n";
                 }
             }
