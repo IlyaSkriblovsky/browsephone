@@ -15,6 +15,8 @@ include(http/http.pri)
 
 HEADERS += \
     TestResource.h  \
+    DeferredResource.h
 
 SOURCES += main.cpp     \
     TestResource.cpp    \
+    DeferredResource.cpp

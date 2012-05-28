@@ -13,7 +13,7 @@ class PlainResponse: public Response
         PlainResponse();
 
 
-        void setContent(const QByteArray& content) { _content = content; }
+        void setContent(const QByteArray& content);
 
 
     protected:
@@ -21,7 +21,11 @@ class PlainResponse: public Response
 
 
     private:
+        bool _contentSet;
         QByteArray _content;
+
+        bool _deferred;
+        QTcpSocket* _deferredSocket;
 };
 
 
