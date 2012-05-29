@@ -3,7 +3,7 @@ TEMPLATE = app
 QT = core network
 
 CONFIG += debug mobility
-MOBILITY += gallery
+MOBILITY += gallery contacts
 
 
 target.path = /opt/browsephone/
@@ -22,10 +22,12 @@ HEADERS += \
     DeferredResource.h  \
     GalleryListResource.h   \
     ItemContentResource.h   \
-    ItemThumbnailResource.h
+    ItemThumbnailResource.h \
+    ContactsResource.h
 
 SOURCES += main.cpp     \
     DeferredResource.cpp\
     GalleryListResource.cpp \
     ItemContentResource.cpp \
-    ItemThumbnailResource.cpp
+    ItemThumbnailResource.cpp   \
+    ContactsResource.cpp

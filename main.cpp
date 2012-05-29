@@ -7,6 +7,7 @@
 #include "GalleryListResource.h"
 #include "ItemContentResource.h"
 #include "ItemThumbnailResource.h"
+#include "ContactsResource.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,6 +19,8 @@ int main(int argc, char *argv[])
 
     server.addResource(new ItemContentResource("/content/"));
     server.addResource(new ItemThumbnailResource("/thumb/"));
+
+    server.addResource(new ContactsResource("/contacts"));
 
     QStringList imageProperties;
     imageProperties
