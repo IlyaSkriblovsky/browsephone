@@ -47,5 +47,11 @@ void ContactsResource::onResultsAvailable()
     qDebug() << _timer.elapsed();
 
     foreach (const QContact& contact, contacts)
-        qDebug() << contact.detail(QContactName::DefinitionName);
+    {
+        qDebug() << contact.detail(QContactDisplayLabel::DefinitionName).value(QContactDisplayLabel::FieldLabel);
+
+        QList<QContactDetail> details = contact.details();
+        foreach (const QContactDetail& detail, details)
+            qDebug() << "    " << detail;
+    }
 }
