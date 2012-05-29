@@ -51,6 +51,17 @@ http::ResponsePromise* ItemThumbnailResource::handle(const http::Request* reques
 }
 
 
+QFile* ItemThumbnailResource::tryOpen(const QString& filename)
+{
+    QFile* f = new QFile(filename);
+    if (f->open(QIODevice::ReadOnly))
+        return f;
+
+    delete f;
+    return 0;
+}
+
+
 void ItemThumbnailResource::onGalleryRequestFinished()
 {
     QGalleryItemRequest* request = static_cast<QGalleryItemRequest*>(sender());
@@ -62,19 +73,16 @@ void ItemThumbnailResource::onGalleryRequestFinished()
     QByteArray url = request->metaData(QDocumentGallery::url).toByteArray();
     QString md5 = QCryptographicHash::hash(url, QCryptographicHash::Md5).toHex();
 
-    QString thumbnailFile = QString("/home/user/.thumbnails/grid/%1.jpeg").arg(md5);
+    QFile* f = tryOpen(QString("/home/user/.thumbnails/grid/%1.jpeg").arg(md5));
+    if (f == 0) f = tryOpen(QString("/home/user/.thumbnails/video-grid/%1.jpeg").arg(md5));
 
-    QFile* f = new QFile(thumbnailFile);
-
-    if (! f->open(QIODevice::ReadOnly))
+    if (! f)
     {
-        delete f;
-
         http::PlainResponse* response = new http::PlainResponse;
         response->headers().insert("Content-Type", "text/html");
         response->setStatus(404, "No thumbnail");
 
-        response->setContent(QString("Can't open %1").arg(thumbnailFile).toUtf8());
+        response->setContent(QString("No thumbnail for %1").arg(md5).toUtf8());
 
         promise->fullfill(response);
     }

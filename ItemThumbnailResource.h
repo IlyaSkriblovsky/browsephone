@@ -7,6 +7,9 @@
 QTM_USE_NAMESPACE
 
 
+class QFile;
+
+
 class ItemThumbnailResource: public QObject, public http::Resource
 {
     Q_OBJECT
@@ -28,4 +31,7 @@ class ItemThumbnailResource: public QObject, public http::Resource
         QString _url;
 
         QStringList _properties;
+
+
+        QFile* tryOpen(const QString& filename);
 };

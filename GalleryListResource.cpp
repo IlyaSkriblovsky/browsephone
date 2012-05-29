@@ -116,7 +116,7 @@ void GalleryListResource::onListRequestFinished()
                     }
                 }
                 else
-                    text += "undefined";
+                    text += "\"undefined\"";
 
 
                 if (i != _properties.size()-1)

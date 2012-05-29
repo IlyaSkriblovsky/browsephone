@@ -4,7 +4,13 @@ $(function () {
         dataType: 'json',
 
         success: function (json) {
-            console.log(json)
+            $.each(json, function () {
+                var img = $('<img>')
+                    .attr({
+                        src: '/thumb/' + this.id
+                    })
+                    .appendTo('body')
+            })
         },
 
         error: function() {

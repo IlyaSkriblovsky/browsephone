@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
         << QDocumentGallery::fileExtension
         << QDocumentGallery::mimeType
     ;
-    server.addResource(new GalleryListResource("/audio", QDocumentGallery::Audio, audioProperties));
+    server.addResource(new GalleryListResource("/audios", QDocumentGallery::Audio, audioProperties));
 
 
     QStringList videoProperties;
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
         << QDocumentGallery::fileExtension
         << QDocumentGallery::mimeType
     ;
-    server.addResource(new GalleryListResource("/video", QDocumentGallery::Video, videoProperties));
+    server.addResource(new GalleryListResource("/videos", QDocumentGallery::Video, videoProperties));
 
 
     QStringList docProperties;
