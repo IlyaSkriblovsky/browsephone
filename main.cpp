@@ -6,6 +6,7 @@
 
 #include "GalleryListResource.h"
 #include "ItemContentResource.h"
+#include "ItemThumbnailResource.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
     server.addResource(new http::StaticDirResource("/static/", "/opt/browsephone/static"));
 
     server.addResource(new ItemContentResource("/content/"));
+    server.addResource(new ItemThumbnailResource("/thumb/"));
 
     QStringList imageProperties;
     imageProperties

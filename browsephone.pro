@@ -21,9 +21,11 @@ include(http/http.pri)
 HEADERS += \
     DeferredResource.h  \
     GalleryListResource.h   \
-    ItemContentResource.h
+    ItemContentResource.h   \
+    ItemThumbnailResource.h
 
 SOURCES += main.cpp     \
     DeferredResource.cpp\
     GalleryListResource.cpp \
-    ItemContentResource.cpp
+    ItemContentResource.cpp \
+    ItemThumbnailResource.cpp

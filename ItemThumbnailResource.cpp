@@ -1,8 +1,9 @@
-#include "ItemContentResource.h"
+#include "ItemThumbnailResource.h"
 
 #include <QDebug>
 #include <QFile>
-#include <QUrl>
+#include <QFileInfo>
+#include <QCryptographicHash>
 
 #include <QGalleryItemRequest>
 
@@ -12,16 +13,16 @@
 #include "http/IODeviceResponse.h"
 
 
-ItemContentResource::ItemContentResource(const QString& url)
+ItemThumbnailResource::ItemThumbnailResource(const QString& url)
     : _url(url)
 {
     _gallery = new QDocumentGallery(this);
 
-    _properties << QDocumentGallery::filePath << QDocumentGallery::mimeType;
+    _properties << QDocumentGallery::url;
 }
 
 
-http::ResponsePromise* ItemContentResource::handle(const http::Request* request)
+http::ResponsePromise* ItemThumbnailResource::handle(const http::Request* request)
 {
     if (! request->url().startsWith(_url))
         return 0;
@@ -44,12 +45,13 @@ http::ResponsePromise* ItemContentResource::handle(const http::Request* request)
 
     galleryRequest->execute();
 
+    qDebug() << galleryRequest->error();
+
     return promise;
 }
 
 
-
-void ItemContentResource::onGalleryRequestFinished()
+void ItemThumbnailResource::onGalleryRequestFinished()
 {
     QGalleryItemRequest* request = static_cast<QGalleryItemRequest*>(sender());
     http::ResponsePromise* promise = static_cast<http::ResponsePromise*>(
@@ -57,33 +59,35 @@ void ItemContentResource::onGalleryRequestFinished()
     );
     request->deleteLater();
 
+    QByteArray url = request->metaData(QDocumentGallery::url).toByteArray();
+    QString md5 = QCryptographicHash::hash(url, QCryptographicHash::Md5).toHex();
 
-    QString filePath = QUrl::fromPercentEncoding(request->metaData(QDocumentGallery::filePath).toByteArray());
+    QString thumbnailFile = QString("/home/user/.thumbnails/grid/%1.jpeg").arg(md5);
 
+    QFile* f = new QFile(thumbnailFile);
 
-    QFile* f = new QFile(filePath);
     if (! f->open(QIODevice::ReadOnly))
     {
         delete f;
 
         http::PlainResponse* response = new http::PlainResponse;
         response->headers().insert("Content-Type", "text/html");
-        response->setStatus(500, "Can't open file");
+        response->setStatus(404, "No thumbnail");
 
-        response->setContent(QString("Can't open %1").arg(filePath).toUtf8());
+        response->setContent(QString("Can't open %1").arg(thumbnailFile).toUtf8());
 
         promise->fullfill(response);
     }
     else
     {
         http::IODeviceResponse* response = new http::IODeviceResponse(f);
-        response->headers().insert("Content-Type", request->metaData(QDocumentGallery::mimeType).toString());
+        response->headers().insert("Content-Type", "image/jpeg");
         promise->fullfill(response);
     }
 }
 
 
-void ItemContentResource::onGalleryRequestError(int error, const QString& errorString)
+void ItemThumbnailResource::onGalleryRequestError(int error, const QString& errorString)
 {
     QGalleryItemRequest* request = static_cast<QGalleryItemRequest*>(sender());
     http::ResponsePromise* promise = static_cast<http::ResponsePromise*>(

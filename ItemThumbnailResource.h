@@ -2,20 +2,17 @@
 
 #include "http/Resource.h"
 
-#include <QStringList>
-
 #include <QDocumentGallery>
 
 QTM_USE_NAMESPACE
 
 
-
-class ItemContentResource: public QObject, public http::Resource
+class ItemThumbnailResource: public QObject, public http::Resource
 {
     Q_OBJECT
 
     public:
-        ItemContentResource(const QString& url);
+        ItemThumbnailResource(const QString& url);
 
         http::ResponsePromise* handle(const http::Request* request);
 
