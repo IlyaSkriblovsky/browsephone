@@ -1,0 +1,18 @@
+.mui_dialog_error {
+    border-top: 2px solid #c4443b;
+}
+
+.mui_dialog_error .mui_dialog_title {
+    color: #c4443b;
+}
+
+
+.mui_dialog_content {
+    padding: 20px;
+}
+
+.mui_dialog_buttonbox {
+    padding: 20px;
+    padding-top: 0;
+    float: right;
+}

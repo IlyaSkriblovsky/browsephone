@@ -1,0 +1,52 @@
+html {
+    height: 100%;
+
+    font-size: 14px;
+    font-family: Trebuchet, Arial, sans-serif;
+    color: #242424;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+
+.ui-pagelinks {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    width: 150px;
+    bottom: 0;
+
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ui-pagelink {
+    font-size: 120%;
+    line-height: 40px;
+    padding: 0 20px;
+    border-left: 4px solid #ffffff;
+    margin-left: 4px;
+}
+.ui-pagelink.active {
+    border-left: 4px solid #08acb8;
+}
+
+.ui-pagelink a {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+
+.ui-page-container {
+    position: absolute;
+    left: 150px;
+    top: 50px;
+    right: 0;
+    bottom: 0;
+}

@@ -23,11 +23,13 @@ HEADERS += \
     GalleryListResource.h   \
     ItemContentResource.h   \
     ItemThumbnailResource.h \
-    ContactsResource.h
+    ContactsResource.h      \
+    JsonUtil.h
 
 SOURCES += main.cpp     \
     DeferredResource.cpp\
     GalleryListResource.cpp \
     ItemContentResource.cpp \
     ItemThumbnailResource.cpp   \
-    ContactsResource.cpp
+    ContactsResource.cpp        \
+    JsonUtil.cpp

@@ -45,8 +45,6 @@ http::ResponsePromise* ItemThumbnailResource::handle(const http::Request* reques
 
     galleryRequest->execute();
 
-    qDebug() << galleryRequest->error();
-
     return promise;
 }
 

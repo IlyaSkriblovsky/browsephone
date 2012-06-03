@@ -1,0 +1,78 @@
+.ui-contacts-list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+
+    list-style-type: none;
+
+    margin: 0 20px;
+    margin-right: 0;
+    padding: 0;
+
+    overflow: auto;
+}
+
+.ui-contacts-list li {
+    line-height: 30px;
+    cursor: pointer;
+}
+.ui-contacts-list li:hover {
+    color: #c4443b;
+}
+
+
+.ui-contacts-filter {
+    border-bottom: 1px solid #7a7a7a;
+    display: none;
+}
+
+.ui-contacts-letter {
+    display: inline-block;
+    padding: 2px 7px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.ui-contacts-letter:hover {
+    color: #c4443b;
+}
+.ui-contacts-letter-all {
+    font-weight: bolder;
+    text-transform: none;
+}
+
+.ui-contacts-letter.active {
+    background: #08acb8;
+    color: #ffffff;
+}
+
+
+
+
+.ui-contact-dialog .mui_dialog_title {
+    width: 400px;
+}
+
+
+.ui-contact-detail {
+    clear: both;
+    margin-bottom: 15px;
+    line-height: 15px
+}
+
+.ui-contact-detail-name {
+    float: left;
+    width: 150px;
+    font-weight: bold;
+}
+
+.ui-contact-detail-context {
+    float: right;
+    color: #747474;
+    font-size: 90%;
+}
+
+.ui-contact-detail-content {
+    margin-left: 150px
+}
