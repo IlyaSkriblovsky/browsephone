@@ -52,7 +52,8 @@ $.widget('mui.basedialog', {
             .position({
                 my: 'center',
                 at: 'center',
-                of: this.dimmer
+                of: this.dimmer,
+                offset: '0 -10'
             })
     },
 

@@ -1,5 +1,17 @@
 (function () {
 
+
+var DetailWeight = {
+    'Name': 100,
+    'Nickname': 90,
+    'Organization': 80,
+    'PhoneNumber': 70,
+    'EmailAddress': 60,
+    'OnlineAccount': 50,
+    'Address': 10
+}
+
+
 ContactsPage = Class(Page, {
     init: function () {
         this.base()
@@ -55,6 +67,17 @@ ContactsPage = Class(Page, {
             if (a.label.toUpperCase() > b.label.toUpperCase()) return +1
             return 0
         })
+
+        for (var i = 0; i < this._contacts.length; i++)
+        {
+            this._contacts[i].details.sort(function (a, b) {
+                var wa = DetailWeight[a.def] || 0
+                var wb = DetailWeight[b.def] || 0
+                if (wa > wb) return -1
+                if (wa < wb) return +1
+                return 0
+            })
+        }
 
         this._generateFilter()
         this._generateContent()
@@ -218,7 +241,17 @@ ContactsPage = Class(Page, {
                 case 'Nickname': {
                     dialog.append(this._detailDiv({
                         name: 'Nickname:',
-                        content: d.Nicknameddress
+                        content: d.Nickname
+                    }))
+                    break
+                }
+
+                case 'OnlineAccount': {
+
+                    dialog.append(this._detailDiv({
+                        name: d.Protocol[0].toUpperCase() + d.Protocol.substring(1) + ':',
+                        content: d.AccountUri,
+                        context: d.Context ? d.Context[0] : ''
                     }))
                     break
                 }

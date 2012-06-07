@@ -3,6 +3,8 @@
 #include <QDebug>
 
 #include <QContactFetchRequest>
+#include <QContactActionDescriptor>
+
 #include <QContactName>
 #include <QContactType>
 #include <QContactGuid>
@@ -103,6 +105,30 @@ void ContactsResource::onResultsAvailable()
 
 
         json += "    ]\n";
+
+//         json += "    \"actions\": [\n";
+// 
+//         QList<QContactActionDescriptor> actions = contacts[ci].availableActions();
+//         for (int ai = 0; ai < actions.size(); ai++)
+//         {
+//             json += QString("      {\n");
+//             json += QString("        \"id\": %1,\n").arg(JsonUtil::string(actions[ai].actionIdentifier()));
+//             json += QString("        \"name\": %1,\n").arg(JsonUtil::string(actions[ai].actionName()));
+//             json += QString("        \"serviceName\": %1,\n").arg(JsonUtil::string(actions[ai].serviceName()));
+// 
+//             json += QString("        \"icon\": %1,\n").arg(JsonUtil::serialize(actions[ai].metaData(QContactActionDescriptor::MetaDataIcon)));
+//             json += QString("        \"label\": %1,\n").arg(JsonUtil::serialize(actions[ai].metaData(QContactActionDescriptor::MetaDataLabel)));
+// //            json += QString("        \"secondLabel\": %1,\n").arg(JsonUtil::serialize(actions[ai].metaData(QContactActionDescriptor::MetaDataSecondLabel)));
+// //            json += QString("        \"mandatory\": %1,\n").arg(JsonUtil::serialize(actions[ai].metaData(QContactActionDescriptor::MetaDataMandatoryParameterKeys)));
+// //            json += QString("        \"optional\": %1\n").arg(JsonUtil::serialize(actions[ai].metaData(QContactActionDescriptor::MetaDataOptionalParameterKeys)));
+// 
+//             json += QString("      }");
+//             if (ai != actions.size() - 1) json += ",";
+//             json += "\n";
+//         }
+// 
+//         json += "    ]\n";
+
         json += "  }";
 
         if (ci < contacts.size()-1) json += ",";

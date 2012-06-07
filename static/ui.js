@@ -7,7 +7,8 @@ UI = Class({
 
         this._pages = {
             'contacts': new ContactsPage,
-            'images': new ImagesPage
+            'images': new ImagesPage,
+            'audios': new AudiosPage
         }
 
         $('body')

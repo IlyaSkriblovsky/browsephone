@@ -1,0 +1,22 @@
+.ui-images-list {
+}
+
+.ui-images-thumb {
+    display: inline-block;
+    margin: 10px;
+    border: 1px solid #eee;
+    cursor: pointer
+}
+.ui-images-thumb:hover {
+    border-color: #08acb8;
+}
+
+.ui-images-thumb-title {
+    text-align: center;
+}
+
+
+
+.ui-image-dialog {
+    position: relative;
+}
